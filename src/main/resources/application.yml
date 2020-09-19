@@ -5,11 +5,11 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql//127.0.0.1:3306/mrc?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://127.0.0.1:3306/mrc?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
-    password: 36696
+    password: 123456
     druid:
       #监控统计拦截的过滤器 不加监控界面sql无法统计 wall用于防火墙
       filter: stat, wall, log4j, config
@@ -18,13 +18,13 @@ spring:
       #初始连接数
       initial-size: 6
       #获取连接最大毫秒数
-      max-wait: 6000
+      max-wait: 60000
       #保持最小空闲连接数
       min-idle: 3
       #间隔多久检测一次需要关闭的空闲连接 毫秒
-      time-between-eviction-runs-millis: 6000
+      time-between-eviction-runs-millis: 30000
       #连接在连接池中最小生存的时间，毫秒
       min-evictable-idle-time-millis: 300000
 
 mybatis:
-  config-location: classpath:mybatis/*Mapper.xml
+  mapper-locations: classpath:mybatis/*Mapper.xml

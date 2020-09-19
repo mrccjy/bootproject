@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @MapperScan("com.mrc.bootproject.mapper")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.mrc.bootproject")
 public class BootprojectApplication {
 
     public static void main(String[] args) {
