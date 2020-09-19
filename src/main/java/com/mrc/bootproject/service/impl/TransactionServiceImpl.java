@@ -26,4 +26,55 @@ public class TransactionServiceImpl implements TransactionService {
         aService.addA("aTranWithBNoTranWithNoTryCatch");
         bService.addBWithoutTransaction("aTranWithBNoTranWithNoTryCatch");
     }
+
+    /**
+     * ab同一个事务，b抛出异常并捕捉
+     * ab都正常提交
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void absameTranWithBThrowAndCatch() {
+        aService.addA("absameTranWithBThrowAndCatch");
+        bService.addBTransactionThrowAndCatch("absameTranWithBThrowAndCatch");
+    }
+
+    /**
+     * a默认事务，b新建事务，b抛出异常并捕捉
+     * ab都正常提交
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void aTranWithBRequiredNewTranBCatchException() {
+        aService.addA("aTranWithBRequiredNewTran");
+        bService.addBRequiredNewTransaction("aTranWithBRequiredNewTran");
+    }
+
+    /**
+     * a默认事务，b新建事务，b抛出异常不捕捉，a捕捉
+     * a提交，b回滚
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void aTranWithBRequiredNewTranACatchException() {
+        aService.addA("aTranWithBRequiredNewTranACatchException");
+        try {
+            bService.addBRequiredNewTransactionThrow("aTranWithBRequiredNewTranACatchException");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ab相同事务，b抛出异常a捕捉，ab回滚
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void absameTranWithBThrowAndACatch() {
+        aService.addA("absameTranWithBThrowAndACatch");
+        try {
+            bService.addBTransactionThrow("absameTranWithBThrowAndACatch");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

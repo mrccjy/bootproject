@@ -1,7 +1,5 @@
 package com.mrc.bootproject.controller;
 
-import com.mrc.bootproject.service.AService;
-import com.mrc.bootproject.service.BService;
 import com.mrc.bootproject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,4 +16,26 @@ public class TransactionController {
     public void aTranWithBNoTran() {
         transactionService.aTranWithBNoTranWithoutTryCatch();
     }
+    
+    @RequestMapping("/aTranWithBRequiredNewTranBCatchException")
+    public void aTranWithBRequiredNewTranBCatchException() {
+        transactionService.aTranWithBRequiredNewTranBCatchException();
+    }
+    
+    @RequestMapping("/aTranWithBRequiredNewTranCatchException")
+    public void aTranWithBRequiredNewTranACatchException() {
+        transactionService.aTranWithBRequiredNewTranACatchException();
+    }
+    
+    @RequestMapping("/absameTranWithBThrowAndCatch")
+    public void absameTranWithBThrowAndCatch() {
+        transactionService.absameTranWithBThrowAndCatch();
+    }
+
+    @RequestMapping("/absameTranWithBThrowAndACatch")
+    public void absameTranWithBThrowAndACatch() {
+        transactionService.absameTranWithBThrowAndACatch();
+    }
+
+
 }

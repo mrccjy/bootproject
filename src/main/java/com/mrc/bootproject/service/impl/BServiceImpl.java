@@ -9,6 +9,8 @@ import com.mrc.bootproject.mapper.BMapper;
 import com.mrc.bootproject.service.BService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -38,5 +40,49 @@ public class BServiceImpl implements BService {
         B b = new B();
         b.setName(name);
         bMapper.insert(b);
+    }
+
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void addBRequiredNewTransaction(String name) {
+        try {
+            B b = new B();
+            b.setName(name);
+            bMapper.insert(b);
+            throw new Exception("主动抛出异常");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void addBTransactionThrowAndCatch(String name) {
+        try {
+            B b = new B();
+            b.setName(name);
+            bMapper.insert(b);
+            throw new Exception("主动抛出异常");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void addBRequiredNewTransactionThrow(String name) throws Exception{
+        B b = new B();
+        b.setName(name);
+        bMapper.insert(b);
+        throw new Exception("主动抛出异常");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void addBTransactionThrow(String name) throws Exception {
+        B b = new B();
+        b.setName(name);
+        bMapper.insert(b);
+        throw new Exception("主动抛出异常");
     }
 }
